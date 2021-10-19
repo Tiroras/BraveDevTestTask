@@ -5,38 +5,45 @@ import {UserType} from './../utils/types';
 import {getUsers} from '../api/api';
 import styled from 'styled-components';
 import {observer} from 'mobx-react-lite';
+import {colors} from '../utils/colors';
 
 const Wrapper = styled.div`
-  max-height: 900px;
+  max-height: 99vh;
   overflow: scroll;
+  overflow-x: hidden;
 `;
 
 const Table = styled.table`
   margin: auto;
   font-size: 24px;
-  th{
-    border: 1px solid black;
-  }
-  td{
-    border: 1px solid black;
-    padding: 10px;
+  background: black;
+
+  th, td{
+    padding: 10px 20px;
   }
 `;
 
 const THead = styled.thead`
-  max-height: 100px;
+  background: ${colors.black};
+  color: white;
+`;
+
+const TBody = styled.tbody`
+  background: white;
 `;
 
 export const Main = observer(() => {
   useEffect(() => {
     getUsers(users.currentPage).then((res) => {
       users.addUsers(res.data);
+      users.setPages(res.meta.pagination.pages);
     });
   }, [users.currentPage]);
 
   const handlerScroll = (e) => {
     const target = e.target;
-    if (target.scrollHeight - target.scrollTop === target.clientHeight) {
+    if ((target.scrollHeight - target.scrollTop === target.clientHeight) &&
+    (users.currentPage !== users.pages)) {
       users.setCurrentPage(users.currentPage + 1);
     }
   };
@@ -46,13 +53,13 @@ export const Main = observer(() => {
       <Table>
         <THead>
           <tr>
-            <th>Имя</th>
-            <th>Почта</th>
-            <th>Пол</th>
-            <th>Статус</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>Status</th>
           </tr>
         </THead>
-        <tbody>
+        <TBody>
           {users.users.map((user: UserType) => (
             <TableElement
               key={user.id}
@@ -63,7 +70,7 @@ export const Main = observer(() => {
               status={user.status}
             />
           ))}
-        </tbody>
+        </TBody>
       </Table>
     </Wrapper>
   );

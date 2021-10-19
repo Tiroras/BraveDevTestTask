@@ -1,6 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {getPostsByUser} from '../api/api';
+import {colors} from '../utils/colors';
+
+const Wrapper = styled.tr`
+  :hover{
+    background: ${colors.grey};
+  }
+`;
 
 const Gender = styled.td`
   text-align: center;
@@ -27,20 +34,12 @@ export const TableElement: React.FC<IProps> = (props) => {
     });
   }, []);
 
-  // const handlerMouseEnter = () => {
-  //   getPostsByUser(props.id).then((res) => {
-  //     setPostsNumber(res.meta.pagination.total);
-  //   });
-  // };
-
   return (
-    <tr>
+    <Wrapper>
       <td>{props.name}</td>
-      <td
-        title={postsNumber.toString()}
-      >{props.email}</td>
+      <td title={postsNumber.toString()}>{props.email}</td>
       <Gender>{props.gender}</Gender>
       <Status>{props.status}</Status>
-    </tr>
+    </Wrapper>
   );
 };
