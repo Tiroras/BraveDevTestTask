@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 const Table = styled.table`
   margin: auto;
   font-size: 24px;
-  background: black;
+  background: ${colors.black};
 
   th, td{
     padding: 10px 20px;
