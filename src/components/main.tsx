@@ -6,6 +6,7 @@ import {getUsers} from '../api/api';
 import styled from 'styled-components';
 import {observer} from 'mobx-react-lite';
 import {colors} from '../utils/colors';
+import {LoadingIndicator} from './loading-indicator';
 
 const Wrapper = styled.div`
   max-height: 99vh;
@@ -49,29 +50,32 @@ export const Main = observer(() => {
   };
 
   return (
-    <Wrapper onScroll={handlerScroll}>
-      <Table>
-        <THead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Gender</th>
-            <th>Status</th>
-          </tr>
-        </THead>
-        <TBody>
-          {users.users.map((user: UserType) => (
-            <TableElement
-              key={user.id}
-              id={user.id}
-              name={user.name}
-              email={user.email}
-              gender={user.gender}
-              status={user.status}
-            />
-          ))}
-        </TBody>
-      </Table>
-    </Wrapper>
+    <>
+      <Wrapper onScroll={handlerScroll}>
+        <Table>
+          <THead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Gender</th>
+              <th>Status</th>
+            </tr>
+          </THead>
+          <TBody>
+            {users.users.map((user: UserType) => (
+              <TableElement
+                key={user.id}
+                id={user.id}
+                name={user.name}
+                email={user.email}
+                gender={user.gender}
+                status={user.status}
+              />
+            ))}
+          </TBody>
+        </Table>
+      </Wrapper>
+      <LoadingIndicator />
+    </>
   );
 });
