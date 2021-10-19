@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TableElement} from './table-element';
 import {users} from './../store/users';
 import {UserType} from './../utils/types';
@@ -34,10 +34,14 @@ const TBody = styled.tbody`
 `;
 
 export const Main = observer(() => {
+  const [isLoading, setLoading] = useState(false);
+
   useEffect(() => {
+    setLoading(true);
     getUsers(users.currentPage).then((res) => {
       users.addUsers(res.data);
       users.setPages(res.meta.pagination.pages);
+      setLoading(false);
     });
   }, [users.currentPage]);
 
@@ -75,7 +79,7 @@ export const Main = observer(() => {
           </TBody>
         </Table>
       </Wrapper>
-      <LoadingIndicator />
+      {isLoading && <LoadingIndicator />}
     </>
   );
 });
