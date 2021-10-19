@@ -23,3 +23,16 @@ export type PaginationType = {
   pages: number
   total: number
 }
+
+export type PostType = {
+  id: number
+  user_id: number
+  title: string
+  body: string
+}
+
+export type PostsFromAPI = {
+  code: number
+  data: PostType[]
+  meta: MetaType
+}

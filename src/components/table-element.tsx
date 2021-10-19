@@ -1,5 +1,6 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
+import {getPostsByUser} from '../api/api';
 
 const Gender = styled.td`
   text-align: center;
@@ -18,10 +19,26 @@ interface IProps {
 }
 
 export const TableElement: React.FC<IProps> = (props) => {
+  const [postsNumber, setPostsNumber] = useState(0);
+
+  useEffect(() => {
+    getPostsByUser(props.id).then((res) => {
+      setPostsNumber(res.meta.pagination.total);
+    });
+  }, []);
+
+  // const handlerMouseEnter = () => {
+  //   getPostsByUser(props.id).then((res) => {
+  //     setPostsNumber(res.meta.pagination.total);
+  //   });
+  // };
+
   return (
     <tr>
       <td>{props.name}</td>
-      <td>{props.email}</td>
+      <td
+        title={postsNumber.toString()}
+      >{props.email}</td>
       <Gender>{props.gender}</Gender>
       <Status>{props.status}</Status>
     </tr>

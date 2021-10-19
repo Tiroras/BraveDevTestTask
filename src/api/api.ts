@@ -1,4 +1,4 @@
-import {UsersFromAPI} from '../utils/types';
+import {PostsFromAPI, UsersFromAPI} from '../utils/types';
 
 const link = 'https://gorest.co.in/public-api';
 
@@ -24,8 +24,8 @@ export const getPosts = () => {
   });
 };
 
-export const getPost = (userId: number) => {
-  return api(`${link}/posts?user_id=${userId}`).then((res) => {
+export const getPostsByUser = (userId: number) => {
+  return api<PostsFromAPI>(`${link}/posts?user_id=${userId}`).then((res) => {
     return res;
   });
 };
