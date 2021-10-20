@@ -1,5 +1,5 @@
 import {makeAutoObservable} from 'mobx';
-import {UserType} from '../utils/types';
+import {UserType} from '../types/types';
 
 class Users {
   users: UserType[] = [];
@@ -8,10 +8,6 @@ class Users {
 
   constructor() {
     makeAutoObservable(this);
-  }
-
-  setUsers(newUsers: UserType[]) {
-    this.users = newUsers;
   }
 
   addUsers(newUsers: UserType[]) {

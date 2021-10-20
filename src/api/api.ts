@@ -1,4 +1,4 @@
-import {PostsFromAPI, UsersFromAPI} from '../utils/types';
+import {PostsFromAPI, UsersFromAPI} from '../types/types';
 
 const link = 'https://gorest.co.in/public-api';
 
@@ -13,9 +13,10 @@ export function api<T>(url: string): Promise<T> {
 };
 
 export const getUsers = (page: number = 1) => {
-  return api<UsersFromAPI>(`${link}/users?page=${page}`).then((res) => {
-    return res;
-  });
+  return api<UsersFromAPI>(`${link}/users?page=${page}`)
+      .then((res) => {
+        return res;
+      });
 };
 
 export const getPosts = () => {

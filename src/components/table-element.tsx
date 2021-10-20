@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import {getPostsByUser} from '../api/api';
-import {colors} from '../utils/colors';
+import {colors} from '../themes/colors';
 
 const Wrapper = styled.tr`
   :hover{

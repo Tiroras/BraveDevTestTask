@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, {keyframes} from 'styled-components';
-import {colors} from '../utils/colors';
+import {colors} from '../themes/colors';
 
 const lessMore = keyframes`
   from{
@@ -27,7 +27,7 @@ const moreLess = keyframes`
 `;
 
 const Wrapper = styled.div`
-  background: ${colors.black};
+  background: ${colors.darkGrey};
   color: white;
   padding: 10px;
   border-radius: 10px;

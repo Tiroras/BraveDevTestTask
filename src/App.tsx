@@ -1,9 +1,9 @@
 import React from 'react';
-import {Main} from './components/main';
+import {UsersTable} from './components/users-table';
 
 function App() {
   return (
-    <Main />
+    <UsersTable />
   );
 }
 

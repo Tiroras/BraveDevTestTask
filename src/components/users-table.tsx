@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {TableElement} from './table-element';
-import {users} from './../store/users';
-import {UserType} from './../utils/types';
+import {users} from '../store/users';
+import {UserType} from '../types/types';
 import {getUsers} from '../api/api';
 import styled from 'styled-components';
 import {observer} from 'mobx-react-lite';
-import {colors} from '../utils/colors';
+import {colors} from '../themes/colors';
 import {LoadingIndicator} from './loading-indicator';
 
 const Wrapper = styled.div`
@@ -17,7 +17,7 @@ const Wrapper = styled.div`
 const Table = styled.table`
   margin: auto;
   font-size: 24px;
-  background: ${colors.black};
+  background: ${colors.darkGrey};
 
   th, td{
     padding: 10px 20px;
@@ -25,7 +25,7 @@ const Table = styled.table`
 `;
 
 const THead = styled.thead`
-  background: ${colors.black};
+  background: ${colors.darkGrey};
   color: white;
 `;
 
@@ -33,7 +33,7 @@ const TBody = styled.tbody`
   background: white;
 `;
 
-export const Main = observer(() => {
+export const UsersTable = observer(() => {
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
