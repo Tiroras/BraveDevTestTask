@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
+
 import {getPostsByUser} from '../api/api';
 import {colors} from '../themes/colors';
 import {UserType} from '../types';
