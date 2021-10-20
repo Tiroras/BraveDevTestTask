@@ -28,22 +28,12 @@ const moreLess = keyframes`
 
 const Wrapper = styled.div`
   background: ${colors.darkGrey};
-  color: white;
   padding: 10px;
   border-radius: 10px;
-  font-weight: bold;
   display: flex;
   position: absolute;
   bottom: 50px;
   right: 50px;
-
-  .first, .third{
-    animation: ${lessMore} 1s linear infinite;
-  }
-
-  .second{
-    animation: ${moreLess} 1s linear infinite;
-  }
 `;
 
 const Circle = styled.div`
@@ -54,12 +44,20 @@ const Circle = styled.div`
   margin: 2px;
 `;
 
+const BasedCircle = styled(Circle)`
+  animation: ${lessMore} 1s linear infinite;
+`;
+
+const SecondCircle = styled(Circle)`
+  animation: ${moreLess} 1s linear infinite;
+`;
+
 export const LoadingIndicator = () => {
   return (
     <Wrapper>
-      <Circle className='first' />
-      <Circle className='second' />
-      <Circle className='third' />
+      <BasedCircle />
+      <SecondCircle />
+      <BasedCircle />
     </Wrapper>
   );
 };

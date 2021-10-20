@@ -7,14 +7,18 @@ const THead = styled.thead`
   color: ${colors.white};
 `;
 
+const Cell = styled.th`
+  padding: 10px 20px;
+`;
+
 export const UsersTableHeader = () => {
   return (
     <THead>
       <tr>
-        <th>Name</th>
-        <th>Email</th>
-        <th>Gender</th>
-        <th>Status</th>
+        <Cell>Name</Cell>
+        <Cell>Email</Cell>
+        <Cell>Gender</Cell>
+        <Cell>Status</Cell>
       </tr>
     </THead>
   );

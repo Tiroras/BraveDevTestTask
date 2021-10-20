@@ -1,15 +1,15 @@
 import React, {useEffect, useState} from 'react';
-import {users} from '../store/users';
 import styled from 'styled-components';
 import {observer} from 'mobx-react-lite';
+
+import {users} from '../store/users';
 import {colors} from '../themes/colors';
 import {LoadingIndicator} from './loading-indicator';
 import {UsersTableHeader} from './users-table-header';
 import {UsersTableContent} from './users-table-content';
 
 const Wrapper = styled.div`
-  max-height: 99vh;
-  overflow: scroll;
+  max-height:100vh;
   overflow-x: hidden;
 `;
 
@@ -17,10 +17,8 @@ const Table = styled.table`
   margin: auto;
   font-size: 24px;
   background: ${colors.darkGrey};
-
-  th, td{
-    padding: 10px 20px;
-  }
+  max-width: 1024px;
+  width: 100%;
 `;
 
 export const UsersTable = observer(() => {
@@ -34,19 +32,21 @@ export const UsersTable = observer(() => {
     const target = e.target;
     const isTableEnd = ((target.scrollHeight - target.scrollTop) ===
     target.clientHeight);
-    if (isTableEnd && (currentPage !== users.pages)) {
+
+    if (isTableEnd) {
       setCurrentPage(currentPage + 1);
     }
   };
 
   return (
     <>
-      <Wrapper onScroll={handlerScroll}>
-        <Table>
+      <Wrapper onScroll={handlerScroll} >
+        <Table >
           <UsersTableHeader />
           <UsersTableContent />
         </Table>
       </Wrapper>
+      {users.error && users.error.message}
       {users.isLoading && <LoadingIndicator />}
     </>
   );

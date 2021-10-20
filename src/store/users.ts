@@ -4,8 +4,8 @@ import {UserType} from '../types';
 
 class Users {
   users: UserType[] = [];
-  pages = 1;
   isLoading = false;
+  error;
 
   constructor() {
     makeAutoObservable(this);
@@ -15,21 +15,20 @@ class Users {
     this.isLoading = this.isLoading ? false : true;
   }
 
-  setPages(pages: number) {
-    this.pages = pages;
-  }
-
   addUsers(users) {
     this.users.push(...users);
+  }
+
+  setError(error) {
+    this.error = error;
   }
 
   loadMore(page) {
     this.toggleLoading();
     getUsers(page).then((res) => {
-      this.setPages(res.meta.pagination.pages);
       this.addUsers(res.data);
       this.toggleLoading();
-    });
+    }).catch((err) => this.setError(err));
   }
 }
 
