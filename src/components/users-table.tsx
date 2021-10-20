@@ -1,12 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {TableElement} from './table-element';
 import {users} from '../store/users';
-import {UserType} from '../types/types';
-import {getUsers} from '../api/api';
 import styled from 'styled-components';
 import {observer} from 'mobx-react-lite';
 import {colors} from '../themes/colors';
 import {LoadingIndicator} from './loading-indicator';
+import {UsersTableHeader} from './users-table-header';
+import {UsersTableContent} from './users-table-content';
 
 const Wrapper = styled.div`
   max-height: 99vh;
@@ -24,32 +23,19 @@ const Table = styled.table`
   }
 `;
 
-const THead = styled.thead`
-  background: ${colors.darkGrey};
-  color: white;
-`;
-
-const TBody = styled.tbody`
-  background: white;
-`;
-
 export const UsersTable = observer(() => {
-  const [isLoading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    setLoading(true);
-    getUsers(users.currentPage).then((res) => {
-      users.addUsers(res.data);
-      users.setPages(res.meta.pagination.pages);
-      setLoading(false);
-    });
-  }, [users.currentPage]);
+    users.loadMore(currentPage);
+  }, [currentPage]);
 
   const handlerScroll = (e) => {
     const target = e.target;
-    if ((target.scrollHeight - target.scrollTop === target.clientHeight) &&
-    (users.currentPage !== users.pages)) {
-      users.setCurrentPage(users.currentPage + 1);
+    const isTableEnd = ((target.scrollHeight - target.scrollTop) ===
+    target.clientHeight);
+    if (isTableEnd && (currentPage !== users.pages)) {
+      setCurrentPage(currentPage + 1);
     }
   };
 
@@ -57,29 +43,11 @@ export const UsersTable = observer(() => {
     <>
       <Wrapper onScroll={handlerScroll}>
         <Table>
-          <THead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Gender</th>
-              <th>Status</th>
-            </tr>
-          </THead>
-          <TBody>
-            {users.users.map((user: UserType) => (
-              <TableElement
-                key={user.id}
-                id={user.id}
-                name={user.name}
-                email={user.email}
-                gender={user.gender}
-                status={user.status}
-              />
-            ))}
-          </TBody>
+          <UsersTableHeader />
+          <UsersTableContent />
         </Table>
       </Wrapper>
-      {isLoading && <LoadingIndicator />}
+      {users.isLoading && <LoadingIndicator />}
     </>
   );
 });

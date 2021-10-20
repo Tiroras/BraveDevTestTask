@@ -1,25 +1,35 @@
 import {makeAutoObservable} from 'mobx';
-import {UserType} from '../types/types';
+import {getUsers} from '../api/api';
+import {UserType} from '../types';
 
 class Users {
   users: UserType[] = [];
-  currentPage = 1;
   pages = 1;
+  isLoading = false;
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  addUsers(newUsers: UserType[]) {
-    this.users.push(...newUsers);
+  toggleLoading() {
+    this.isLoading = this.isLoading ? false : true;
   }
 
-  setCurrentPage(newPage) {
-    this.currentPage = newPage;
-  }
-
-  setPages(pages) {
+  setPages(pages: number) {
     this.pages = pages;
+  }
+
+  addUsers(users) {
+    this.users.push(...users);
+  }
+
+  loadMore(page) {
+    this.toggleLoading();
+    getUsers(page).then((res) => {
+      this.setPages(res.meta.pagination.pages);
+      this.addUsers(res.data);
+      this.toggleLoading();
+    });
   }
 }
 

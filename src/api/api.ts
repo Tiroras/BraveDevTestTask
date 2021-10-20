@@ -1,4 +1,4 @@
-import {PostsFromAPI, UsersFromAPI} from '../types/types';
+import {PostsFromAPI, UsersFromAPI} from '../types';
 
 const link = 'https://gorest.co.in/public-api';
 
