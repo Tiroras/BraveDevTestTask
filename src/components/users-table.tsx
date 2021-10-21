@@ -21,6 +21,18 @@ const Table = styled.table`
   width: 100%;
 `;
 
+const ErrorMessage = styled.div`
+  border: 2px solid ${colors.red};
+  background: ${colors.pink};
+  color: ${colors.red};
+  padding: 10px;
+  max-width: 500px;
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  opacity: 0.9;
+`;
+
 export const UsersTable = observer(() => {
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -46,7 +58,7 @@ export const UsersTable = observer(() => {
           <UsersTableContent />
         </Table>
       </Wrapper>
-      {users.error && users.error.message}
+      {users.error && <ErrorMessage>{users.error.message}</ErrorMessage>}
       {users.isLoading && <LoadingIndicator />}
     </>
   );
