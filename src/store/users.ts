@@ -5,7 +5,7 @@ import {UserType} from '../types';
 class Users {
   users: UserType[] = [];
   isLoading = false;
-  error;
+  error: Error | null = null;
 
   constructor() {
     makeAutoObservable(this);
