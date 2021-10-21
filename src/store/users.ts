@@ -11,10 +11,6 @@ class Users {
     makeAutoObservable(this);
   }
 
-  toggleLoading() {
-    this.isLoading = this.isLoading ? false : true;
-  }
-
   addUsers(users) {
     this.users.push(...users);
   }
@@ -24,10 +20,10 @@ class Users {
   }
 
   loadMore(page) {
-    this.toggleLoading();
+    this.isLoading = true;
     getUsers(page).then((res) => {
       this.addUsers(res.data);
-      this.toggleLoading();
+      this.isLoading = false;
     }).catch((err) => this.setError(err));
   }
 }
